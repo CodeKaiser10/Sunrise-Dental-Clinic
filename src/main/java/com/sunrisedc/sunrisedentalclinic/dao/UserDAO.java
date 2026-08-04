@@ -6,18 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+//Isolate all user tables in mySQL (DAO Pattern and Single-responsibility)
 public class UserDAO {
 
+    //returns the user as a Staff or a null
     public Staff findByUsername(String username) {
         String query = "SELECT * FROM users STAFF WHERE username = ?";
 
         try {
+            //shared Singleton connection through factory wrapper
             Connection connection = DBConnectionFactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
 
+            //pull each column value out of the row
             if (resultSet.next()){
                 int id = resultSet.getInt("user_id");
                 String user = resultSet.getString("username");
@@ -27,14 +30,14 @@ public class UserDAO {
                 String phone = resultSet.getString("phone");
                 Role role = Role.valueOf(resultSet.getString("role"));
 
+                //factory logic for returning a staff
                 switch (role){
                     case MANAGER:
                         return new Manager(id, user, hash, name, email, phone);
                     case RECEPTIONIST:
                         return new Receptionist(id, user, hash, name, email, phone);
                     case DENTIST:
-                        String spec = resultSet.getString("specialization");
-                        return new Dentist(id, user, hash, name, email, phone, spec);
+                        return new Dentist(id, user, hash, name, email, phone, null);
                 }
             }
         } catch (SQLException e) {
