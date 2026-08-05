@@ -12,6 +12,6 @@ public class Manager extends Staff{
 
     @Override
     public String getDashboard() {
-        return "Receptionist";
+        return "Manager";
     }
 }
