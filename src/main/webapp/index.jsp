@@ -1,13 +1,27 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JSP - Hello World</title>
+    <jsp:include page="/WEB-INF/view/includes/head.jsp" />
+    <title>Welcome - Sunrise Dental Clinic</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+
+<!-- Optional: Include Navbar if you want it on the welcome screen -->
+<jsp:include page="/WEB-INF/view/includes/header.jsp" />
+
+<!-- Grain background wrapper -->
+<div class="grain-canvas">
+
+    <!-- Glass card for the welcome message -->
+    <div class="glass-card">
+        <h1 class="login-title">Sunrise Dental Clinic</h1>
+        <p class="login-subtitle">Management System</p>
+
+        <a href="${pageContext.request.contextPath}/login" class="btn-primary mt-4">Go to Login</a>
+    </div>
+
+</div>
+
 </body>
 </html>
