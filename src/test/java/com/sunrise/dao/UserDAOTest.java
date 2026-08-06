@@ -5,6 +5,8 @@ import com.sunrisedc.sunrisedentalclinic.model.Staff;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.util.List;
+
 public class UserDAOTest {
 
     @Test
@@ -19,5 +21,14 @@ public class UserDAOTest {
     public void testFindByUsername_notfound() {
         UserDAO userDAO = new UserDAO();
         assertNull(userDAO.findByUsername("not found"));
+    }
+
+    @Test
+    public void testFindAll() {
+        UserDAO userDAO = new UserDAO();
+        List<Staff> users = userDAO.findAll();
+
+        assertNotNull(users);
+        assertTrue(users.size() >= 3);
     }
 }
