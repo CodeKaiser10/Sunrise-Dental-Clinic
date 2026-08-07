@@ -7,9 +7,6 @@
 </head>
 <body>
 
-<!-- Optional: Include Navbar if you want it on the welcome screen -->
-<jsp:include page="/WEB-INF/view/includes/header.jsp" />
-
 <!-- Grain background wrapper -->
 <div class="grain-canvas">
 
