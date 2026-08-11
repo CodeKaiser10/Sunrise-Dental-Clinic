@@ -2,9 +2,8 @@ package com.sunrise.dao;
 
 import com.sunrisedc.sunrisedentalclinic.dao.UserDAO;
 import com.sunrisedc.sunrisedentalclinic.model.Staff;
-import static org.junit.Assert.*;
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class UserDAOTest {
