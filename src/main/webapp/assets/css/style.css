@@ -167,3 +167,42 @@ body, html {
     box-shadow: 0 8px 32px rgba(168, 85, 247, 0.45);
     color: #fff;
 }
+
+/* Dashboard */
+.dashboard-container {
+    width: 100%;
+    max-width: 1000%;
+    z-index: 10;
+}
+
+.dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.dash-tile {
+    display: block;
+    text-align: left;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.dash-tile:hover {
+    transform: translateY(-2px);
+    border-color: rgba(168, 85, 247, 0.5);
+}
+
+.dash-tile h3 {
+    color: var(--foreground);
+    font-size: 1.1rem;
+    margin: 0 0 0.4rem 0;
+}
+
+.dash-tile p {
+    color: var(--muted-foreground);
+    font-size: 0.9rem;
+    margin: 0;
+}
