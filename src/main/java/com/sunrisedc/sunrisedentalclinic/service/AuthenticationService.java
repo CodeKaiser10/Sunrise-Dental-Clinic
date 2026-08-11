@@ -28,6 +28,10 @@ public class AuthenticationService {
         return BCrypt.checkpw(plainPassword, HASH_PASSWORD);
     }
 
+    public String hashPassword (String plainPassword) {
+        return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+    }
+
     public Staff login(String username, String passwordHash) {
         Staff user = userDAO.findByUsername(username);
         if (user == null) {
