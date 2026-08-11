@@ -1,18 +1,18 @@
 package com.sunrise.service;
 
 import com.sunrisedc.sunrisedentalclinic.service.AuthenticationService;
-import com.sunrisedc.sunrisedentalclinic.model.Staff;
 import com.sunrisedc.sunrisedentalclinic.model.Manager;
 import com.sunrisedc.sunrisedentalclinic.model.Receptionist;
 import com.sunrisedc.sunrisedentalclinic.model.Dentist;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 
 //password authentication checking for user login flows
 public class AuthenticationServiceTest {
 
-    //BCrypt hash for password
+    //Bcrypt hash for password
     private static final String HASH_PASSWORD = "$2a$12$6IKQqqDqe6u1kU.JN1I51.pwVaXiqcoLhAKd7VUIbfjv86VvCIjey";
 
     //password authentication mechanism without database checking
@@ -43,9 +43,9 @@ public class AuthenticationServiceTest {
     @Test
     public void testLogin_returnType() {
         AuthenticationService auth = AuthenticationService.getInstance();
-        assertTrue(auth.login("manager", "Password@123") instanceof Manager);
-        assertTrue(auth.login("receptionist", "Password@123") instanceof Receptionist);
-        assertTrue(auth.login("dentist", "Password@123") instanceof Dentist);
+        assertInstanceOf(Manager.class, auth.login("manager", "Password@123"));
+        assertInstanceOf(Receptionist.class, auth.login("receptionist", "Password@123"));
+        assertInstanceOf(Dentist.class, auth.login("dentist", "Password@123"));
     }
 
     @Test
