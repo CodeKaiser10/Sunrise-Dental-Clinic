@@ -15,9 +15,12 @@ public class Dentist extends Staff{
 
     @Override
     public String getDashboard() {
-        return "Dentist";
+        return "/dentist/Ddashboard";
     }
 
-    public String getSpecializationDetails() { return specialization; }
-    public void setSpecialization(String specialization) { this.specialization = specialization; }
+    public String getSpecializationDetails() {
+        return specialization; }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization; }
 }

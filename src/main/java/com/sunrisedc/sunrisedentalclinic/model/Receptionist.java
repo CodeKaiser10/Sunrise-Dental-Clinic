@@ -12,6 +12,6 @@ public class Receptionist extends Staff{
 
     @Override
     public String getDashboard() {
-        return "Receptionist";
+        return "/receptionist/Rdashboard";
     }
 }
