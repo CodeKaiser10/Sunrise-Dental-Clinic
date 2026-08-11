@@ -14,13 +14,16 @@ public class UserDAO {
     //returns the user as a Staff or a null
     public Staff findByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
 
         try {
             //shared Singleton connection through factory wrapper
-            Connection connection = DBConnectionFactory.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
+            connection  = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
             statement.setString(1, username);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             //pull each column value out of the row
             if (resultSet.next()){
@@ -44,6 +47,13 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (resultSet != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -52,11 +62,14 @@ public class UserDAO {
     public List<Staff> findAll() {
         List<Staff> users = new ArrayList<>();
         String query = "SELECT * FROM users";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
 
         try {
-            Connection connection = DBConnectionFactory.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+            connection = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
 
             //Loop every row
             while (resultSet.next()) {
@@ -81,16 +94,27 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
 
+    //insert a new staff row
     public void insert(Staff staff) {
 
         String query = "INSERT INTO users (username, password_hash, role ,full_name, email, phone) VALUES (?, ?, ?, ?, ?, ?)";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
         try {
-            Connection connection = DBConnectionFactory.getConnection();
-            PreparedStatement statement = connection .prepareStatement(query);
+            connection = DBConnectionFactory.getConnection();
+            statement = connection .prepareStatement(query);
             statement.setString(1, staff.getUsername());
             statement.setString(2, staff.getPasswordHash());
             statement.setString(3, staff.getRole().name());
@@ -100,18 +124,33 @@ public class UserDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+    //deletes user by username
     public void deleteByUsername(String username) {
         String query = "DELETE FROM users WHERE username = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
-            Connection connection = DBConnectionFactory.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
+            connection = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
             statement.setString(1, username);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
