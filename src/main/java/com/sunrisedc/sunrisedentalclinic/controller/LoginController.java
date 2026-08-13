@@ -16,34 +16,36 @@ public class LoginController extends HttpServlet {
 
     private AuthenticationService authService;
 
-    //get the shared auth service when the servlet loads
-    public void init() throws ServletException {
-        authService = AuthenticationService.getInstance();
+    //default constructor
+    public LoginController() {}
+
+    public LoginController(AuthenticationService authService) {
+        this.authService = authService;
     }
 
-    //GET request
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    //GET
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
     }
 
-    //POST request
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    //POST
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String username = request.getParameter("username");
-        String passwordHash = request.getParameter("password");
+        String password = request.getParameter("password");
 
-        Staff user = authService.login(username, passwordHash);
+        Staff user = authService.login(username, password);
 
-        if (user != null) {
-            //store the user in the session and direct to their dashboard
+        if(user != null) {
+            //store the user in the session and redirect them to their dashboard
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             response.sendRedirect(request.getContextPath() + user.getDashboard());
         } else {
-            //if failed redirect to form and show error message
-            request.setAttribute("errorMessage", "Invalid username or password");
+            //if failed redirect to the login form and show error message
+            request.setAttribute("error", "Invalid username or password");
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
     }

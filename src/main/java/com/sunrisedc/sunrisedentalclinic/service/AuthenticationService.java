@@ -7,10 +7,16 @@ import org.mindrot.jbcrypt.BCrypt;
 public class AuthenticationService {
 
     private static AuthenticationService instance;
+
     private UserDAO userDAO;
 
     private AuthenticationService() {
+
         this.userDAO = new UserDAO();
+    }
+
+    public AuthenticationService(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     public static AuthenticationService getInstance() {
@@ -29,7 +35,8 @@ public class AuthenticationService {
     }
 
     public String hashPassword (String plainPassword) {
-        return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+
+    return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
     }
 
     public Staff login(String username, String passwordHash) {

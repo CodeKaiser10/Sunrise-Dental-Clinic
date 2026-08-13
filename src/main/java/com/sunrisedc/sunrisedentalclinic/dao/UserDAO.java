@@ -50,7 +50,7 @@ public class UserDAO {
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
-                if (resultSet != null) statement.close();
+                if (statement != null) statement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
