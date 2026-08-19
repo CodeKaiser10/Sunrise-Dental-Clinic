@@ -37,6 +37,11 @@ public class UserService {
         userDAO.insert(staff);
     }
 
+    // Removes a user account by username.
+    public void deleteUser(String username) {
+        userDAO.deleteByUsername(username);
+    }
+
     public List<Staff> getAllUsers() {
         return userDAO.findAll();
     }
