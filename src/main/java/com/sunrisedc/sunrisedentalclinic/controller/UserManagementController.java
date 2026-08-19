@@ -32,6 +32,16 @@ public class UserManagementController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
+        String action = request.getParameter("action");
+
+        // Delete branch — remove the user, then reload the list (Post-Redirect-Get).
+        if ("delete".equals(action)) {
+            String username = request.getParameter("username");
+            userService.deleteUser(username);
+            response.sendRedirect(request.getContextPath() + "/manager/users");
+            return;
+        }
+
         String username = request.getParameter("username");
         String passwordHash = request.getParameter("password");
         String fullName = request.getParameter("fullName");

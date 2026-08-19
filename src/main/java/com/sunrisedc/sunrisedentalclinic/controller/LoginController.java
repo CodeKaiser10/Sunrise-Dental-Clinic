@@ -23,6 +23,11 @@ public class LoginController extends HttpServlet {
         this.authService = authService;
     }
 
+    @Override
+    public void init() throws ServletException {
+        authService = AuthenticationService.getInstance();
+    }
+
     //GET
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
