@@ -114,4 +114,24 @@ public class UserDAOTest {
             assertEquals("manager", users.get(0).getUsername());
         }
     }
+
+    @Test
+    void updateUserUsingPreparedStatement() throws Exception{
+        Connection connection = mock(Connection.class);
+        PreparedStatement statement = mock(PreparedStatement.class);
+        when(connection.prepareStatement(anyString())).thenReturn(statement);
+
+        Receptionist staff = new Receptionist(0, "user1", "hash", "Lakshan", "Lak@sunrise@.lk", "0700000000");
+
+        try (MockedStatic<DBConnectionFactory> mocked = mockStatic(DBConnectionFactory.class);) {
+            mocked.when(DBConnectionFactory::getConnection).thenReturn(connection);
+
+            UserDAO userDAO = new UserDAO();
+            userDAO.update(staff);
+
+            verify(statement).setString(1, "Lakshan");
+            verify(statement).setString(5, "user1");
+            verify(statement).executeUpdate();
+        }
+    }
 }

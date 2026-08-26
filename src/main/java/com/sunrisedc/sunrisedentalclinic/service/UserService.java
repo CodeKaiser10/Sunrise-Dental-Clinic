@@ -45,4 +45,13 @@ public class UserService {
     public List<Staff> getAllUsers() {
         return userDAO.findAll();
     }
+
+    //update an existing user's details
+    public void updateUser(Staff staff) {
+        userDAO.update(staff);
+    }
+
+    public Staff findUser(String username) {
+        return userDAO.findByUsername(username);
+    }
 }

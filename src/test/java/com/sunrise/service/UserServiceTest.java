@@ -41,4 +41,26 @@ public class UserServiceTest {
         verify(authenticationService).hashPassword("password");
         verify(userDAO).insert(staff);
     }
+<<<<<<< Updated upstream
+=======
+
+    @Test
+    void shouldDeleteUserThroughDAO() {
+        userService.deleteUser("user");
+        verify(userDAO).deleteByUsername("user");
+    }
+
+    @Test
+    void updateUserThroughDAO() {
+        Staff staff = new Receptionist(0, "user1", null, "Lakshan", "Lak@sunrise.lk", "0700000000");
+        userService.updateUser(staff);
+        verify(userDAO).update(staff);
+    }
+
+    @Test
+    void findUserThroughDAO() {
+        userService.findUser("user1");
+        verify(userDAO).findByUsername("user1");
+    }
+>>>>>>> Stashed changes
 }
