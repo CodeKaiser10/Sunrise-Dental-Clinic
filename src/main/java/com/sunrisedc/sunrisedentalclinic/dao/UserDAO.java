@@ -153,6 +153,32 @@ public class UserDAO {
             }
         }
     }
+
+    //updates an existing users details
+    public void update(Staff staff) {
+        String query = "UPDATE users SET full_name = ?, email = ?, phone = ?, role = ? WHERE username = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
+            statement.setString(1, staff.getFullName());
+            statement.setString(2, staff.getEmail());
+            statement.setString(3, staff.getPhone());
+            statement.setString(4, staff.getRole().name());
+            statement.setString(5, staff.getUsername());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 
