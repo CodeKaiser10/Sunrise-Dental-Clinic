@@ -20,10 +20,13 @@ public class UserServiceTest {
     @Mock
     private AuthenticationService authenticationService;
 
+    private UserService userService;
+
     // Creates the @Mock objects before each test runs.
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
+        userService = new UserService(userDAO, authenticationService);
     }
 
     @Test
@@ -41,14 +44,13 @@ public class UserServiceTest {
         verify(authenticationService).hashPassword("password");
         verify(userDAO).insert(staff);
     }
-<<<<<<< Updated upstream
-=======
 
     @Test
     void shouldDeleteUserThroughDAO() {
         userService.deleteUser("user");
         verify(userDAO).deleteByUsername("user");
     }
+
 
     @Test
     void updateUserThroughDAO() {
@@ -62,5 +64,5 @@ public class UserServiceTest {
         userService.findUser("user1");
         verify(userDAO).findByUsername("user1");
     }
->>>>>>> Stashed changes
+
 }
