@@ -10,7 +10,7 @@ import com.sunrisedc.sunrisedentalclinic.model.Patient;
 import com.sunrisedc.sunrisedentalclinic.service.PatientService;
 
 //handles patient registrations, search, list, edit and delete
-@WebServlet("/receptionist/patients")
+@WebServlet({"/receptionist/patients", "/manager/patients"})
 public class PatientController extends HttpServlet {
 
     private PatientService patientService;

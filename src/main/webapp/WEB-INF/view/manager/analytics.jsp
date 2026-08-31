@@ -34,8 +34,8 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-num">${summary.canceledAppointments}</div>
-            <div class="stat-label">Canceled</div>
+            <div class="stat-num">${summary.cancelledAppointments}</div>
+            <div class="stat-label">Cancelled</div>
         </div>
 
         <div class="stat-card">

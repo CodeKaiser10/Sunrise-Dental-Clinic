@@ -27,6 +27,6 @@ public class AnalyticsController extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("summary", analyticsService.getSummary());
-        request.getRequestDispatcher("WEB-INF/view/manager/analytics.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/manager/analytics.jsp").forward(request, response);
     }
 }

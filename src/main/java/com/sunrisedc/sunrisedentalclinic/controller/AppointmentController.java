@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.sunrisedc.sunrisedentalclinic.model.Appointment;
 import com.sunrisedc.sunrisedentalclinic.service.AppointmentService;
 
-@WebServlet("/receptionist/appointments")
+@WebServlet({"/receptionist/appointments", "/manager/appointments"})
 public class AppointmentController extends HttpServlet {
 
     private AppointmentService appointmentService;
@@ -26,18 +26,30 @@ public class AppointmentController extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        //search by appointment number if given
-        String appNo = request.getParameter("appointmentNumber");
-        if (appNo != null && !appNo.isEmpty()) {
-            Appointment found = appointmentService.findByNumber(appNo);
-            request.setAttribute("searchResult", found);
+        // Show the booking form page.
+        String action = request.getParameter("action");
+        if ("new".equals(action)) {
+            request.getRequestDispatcher("/WEB-INF/view/receptionist/appointment-form.jsp").forward(request, response);
+            return;
         }
 
-        //to always show the full list
+        // Search by appointment number if given (null-safe).
+        String appNo = request.getParameter("appointmentNumber");
+        if (appNo != null && !appNo.isEmpty()) {
+            request.setAttribute("searchResult", appointmentService.findByNumber(appNo));
+        }
+
         request.setAttribute("appointments", appointmentService.getAllAppointments());
-        request.getRequestDispatcher("WEB-INF/view/appointments/appointments.jsp").forward(request, response);
+
+        // Manager gets read-only view; receptionist gets full manage view.
+        if (request.getServletPath().startsWith("/manager")) {
+            request.getRequestDispatcher("/WEB-INF/view/manager/appointments.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/view/receptionist/appointments.jsp").forward(request, response);
+        }
     }
 
     @Override

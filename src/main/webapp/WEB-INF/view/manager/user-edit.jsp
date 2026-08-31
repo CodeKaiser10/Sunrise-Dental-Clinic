@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <jsp:include page="/WEB-INF/view/includes/head.jsp" />
     <title>Edit Staff</title>
@@ -14,24 +13,24 @@
 
     <div class="panel">
         <div class="panel-bar">
-            <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-yellow"></span>
-            <span class="panel-bar-name">edit_staff.exe></span>
+            <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="panel-bar-name">edit_staff.exe</span>
         </div>
 
         <div class="panel-body">
-            <!-- pre-filled with selected users current details -->
+            <!-- Pre-filled with the selected user's current details. -->
             <form action="${pageContext.request.contextPath}/manager/users" method="post" class="grid-form">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="username" value="${editUser.username}">
 
                 <div class="field">
                     <label>Username</label>
-                    <input type="text" name="username" value="${editUser.username}" required>
+                    <input type="text" value="${editUser.username}" disabled>
                 </div>
 
                 <div class="field">
                     <label>Full name</label>
-                    <input type="text" name="fullName" value="${editUser.fullname}" required>
+                    <input type="text" name="fullName" value="${editUser.fullName}" required>
                 </div>
 
                 <div class="field">
@@ -52,9 +51,10 @@
                         <option value="DENTIST" ${editUser.role == 'DENTIST' ? 'selected' : ''}>Dentist</option>
                     </select>
                 </div>
+
                 <div class="field field-full">
                     <button type="submit" class="btn-pill">Save Changes &raquo;</button>
-                    <a href="${pageContext.request.contextPath}/manager/users}" class="btn-mini btn-edit" style="margin-left: 10px;">Cancel</a>
+                    <a href="${pageContext.request.contextPath}/manager/users" class="btn-mini btn-edit" style="margin-left: 10px;">Cancel</a>
                 </div>
             </form>
         </div>

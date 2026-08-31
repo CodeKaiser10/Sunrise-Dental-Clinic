@@ -23,9 +23,6 @@ public class UserManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        List<Staff> users = userService.getAllUsers();
-        request.setAttribute("users", users);
-        request.getRequestDispatcher("/WEB_INF/view/manager/users.jsp").forward(request, response);
 
             String action = request.getParameter("action");
 
@@ -34,13 +31,13 @@ public class UserManagementController extends HttpServlet {
                 String username = request.getParameter("username");
                 Staff user = userService.findUser(username);
                 request.setAttribute("editUser", user);
-                request.getRequestDispatcher("/WEB_INF/view/manager/user-edit.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/view/manager/user-edit.jsp").forward(request, response);
                 return;
             }
 
             //show the full staff list
             request.setAttribute("users", userService.getAllUsers());
-            request.getRequestDispatcher("/WEB_INF/view/manager/users.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/manager/users.jsp").forward(request, response);
     }
 
     @Override

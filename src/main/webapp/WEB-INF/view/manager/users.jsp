@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <jsp:include page="/WEB-INF/view/includes/head.jsp" />
     <title>Manage Staff</title>
@@ -13,11 +12,11 @@
 <div class="page-wrap">
     <h1 class="page-heading">Manage Staff</h1>
 
-    <!-- add staff form -->
+    <!-- Add staff form -->
     <div class="panel">
         <div class="panel-bar">
-            <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-yellow"></span>
-            <span class="panel-bar-name"add_staff.exe></span>
+            <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="panel-bar-name">add_staff.exe</span>
         </div>
         <div class="panel-body">
             <form action="${pageContext.request.contextPath}/manager/users" method="post" class="grid-form">
@@ -35,19 +34,24 @@
                     </select>
                 </div>
                 <div class="field field-full">
-                    <button type="submit" class="btn-pill"Add User &raquo;></button>
+                    <button type="submit" class="btn-pill">Add User &raquo;</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!--Staff list table-->
+    <!-- Staff list table -->
     <div class="panel">
         <div class="panel-bar">
-            <thead>
+            <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="panel-bar-name">staff_list.exe</span>
+        </div>
+        <div class="panel-body">
+            <table class="data-table">
+                <thead>
                 <tr><th>Name</th><th>Username</th><th>Role</th><th>Email</th><th>Phone</th><th>Actions</th></tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <c:forEach var="u" items="${users}">
                     <tr>
                         <td>${u.fullName}</td>
@@ -56,11 +60,11 @@
                         <td>${u.email}</td>
                         <td>${u.phone}</td>
                         <td class="actions">
-                            <a href="${pageContext.request.contextPath}/manager/users?action=edit&username" class="btn-mini btn-edit">Edit</a>
-                            <form action="${pageContext.request.contextPath}/manager/users" method="post" onsubmit="return confirm('Delete ${u.username}?');" style="display:inline ">
-                                <input type="hidden" name="action" value="DELETE">
+                            <a href="${pageContext.request.contextPath}/manager/users?action=edit&username=${u.username}" class="btn-mini btn-edit">Edit</a>
+                            <form action="${pageContext.request.contextPath}/manager/users" method="post" onsubmit="return confirm('Delete ${u.username}?');" style="display:inline;">
+                                <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="username" value="${u.username}">
-                                <button type="submit" class="btn-mini mini-del">Delete</button>
+                                <button type="submit" class="btn-mini btn-del">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -68,7 +72,8 @@
                 <c:if test="${empty users}">
                     <tr><td colspan="6" class="empty-row">No staff yet</td></tr>
                 </c:if>
-            </tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
