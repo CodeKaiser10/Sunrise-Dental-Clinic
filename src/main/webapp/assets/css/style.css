@@ -188,3 +188,122 @@ body { background: linear-gradient(135deg, #7cc9ff 0%, #a98bff 55%, #ff9be5 100%
 }
 .dash-tile p { font-size: 18px; letter-spacing: .5px; color: #5b3fd6; margin: 0; }
 .dash-tile .dash-ico { font-size: 20px; color: #6a5acd; margin-bottom: 6px; }
+
+/* ------------------- forms, tables and stats ---------------- */
+
+/* page wrapper */
+.page-wrap {max-width: 1000px; margin: 0 auto; padding: 28px 20px 48px}
+.page-heading {
+    font-family: 'Fredoka One', cursive;
+    font-weight: normal;
+    font-size: 32px;
+    color: #fff;
+    text-shadow: 0 2px 0px rgba(106,90,205,.6);
+    margin-bottom: 20px;
+}
+
+/* window panel*/
+.panel {
+    border: 2px solid #6a5acd;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 6px 0 rgba(106,90,205,.35);
+}
+
+.panel-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    background: linear-gradient(180deg, #8f7bff, #5b3fd6);
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+.panel-bar .dot {width: 12px; height: 12px; border-radius: 50%; border: 1px solid #fff; }
+.panel-bar-name {margin-left: 6px}
+.panel-body {padding: 20px; background: linear-gradient(180deg, #ffffff 0%, #eef6ff 100%);}
+
+/* form fields */
+.field {display: flex; flex-direction: column; margin-bottom: 14px}
+.field label { font-size: 18px; letter-spacing: 1px; color: #5b3fd6; margin-bottom: 4px; }
+.field input, field select {
+    font-family: 'VT323', monospace;
+    font-size: 19px;
+    padding: 9px 12px;
+    border: 2px solid #6a5acd;
+    border-radius: 8px;
+    background: #f6f2ff;
+    color: #33235c;
+    outline: none;
+}
+.field input:focus { border-color: #ff5fa2; background: #fff; }
+
+/* grid form */
+.grid-form {display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px}
+.grid-form .field-full {grid-column: 1 / -1;}
+@media (max-width: 560px) { .grid-form {grid-template-columns: 1fr;}}
+
+/* pill button */
+.btn-pill {
+    font-family: 'Fredoka One', cursive;
+    font-size: 19px;
+    color: #fff;
+    cursor: pointer;
+    padding: 11px 30px;
+    border-radius: 999px;
+    border: 2px solid #fff;
+    background: linear-gradient(180deg, #ff3d9a, #ff3d9a);
+    box-shadow: 0 5px 0 #a3125d;
+    text-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+.btn-pill:active { transform: translateY(2px); box-shadow: 0 3px 0 #a3125d; }
+
+/* data table */
+.data-table td { padding: 10px 12px; border-bottom: 1px solid #e5ddf5; color: #33235c; }
+.data-table tr:nth-child(even) td { background: #f6f2ff; }
+.empty-row { text-align: center; color: #9aa7c7; padding: 18px; }
+
+/* Row action buttons. */
+.actions { white-space: nowrap; }
+.btn-mini {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 2px solid #6a5acd;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.btn-edit { background: #d8f0ff; color: #2a6ad6; margin-right: 4px; }
+.btn-del { background: #ffe0ec; color: #c01860; border-color: #ff5fa2; }
+
+/* Stat cards (analytics). */
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 720px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .stat-grid { grid-template-columns: 1fr; } }
+.stat-card {
+    background: linear-gradient(180deg,#ffffff 0%,#eef6ff 100%);
+    border: 2px solid #6a5acd;
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 6px 0 rgba(106,90,205,.35);
+}
+.stat-num { font-family: 'Fredoka One', cursive; font-size: 34px; color: #ff5fa2; }
+.stat-label { font-size: 18px; letter-spacing: 1px; color: #5b3fd6; margin-top: 4px; }
+.stat-card-money .stat-num { color: #22a06b; }
+
+/* Search-hit result box (manager appointment search). */
+.search-hit {
+    margin-top: 14px;
+    padding: 10px 14px;
+    font-size: 18px;
+    color: #33235c;
+    background: #e6ffef;
+    border: 2px solid #68ffb0;
+    border-radius: 8px;
+}
+.search-hit strong { color: #22a06b; }

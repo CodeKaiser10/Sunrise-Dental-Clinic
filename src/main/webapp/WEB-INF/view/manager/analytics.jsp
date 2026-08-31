@@ -1,16 +1,48 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Shahindu
-  Date: 07-08-2026
-  Time: 02:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
-    <title>Title</title>
+    <jsp:include page="/WEB-INF/view/includes/head.jsp" />
+    <title>Analytics</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/view/includes/header.jsp"/>
 
+<div class="page-wrap">
+    <h1 class="page-heading">Clinic Analytics</h1>
+
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="stat-num">${summary.totalPatients}</div>
+            <div class="stat-label">Total Patients</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-num">${summary.totalAppointments}</div>
+            <div class="stat-label">Total Appointments</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-num">${summary.scheduledAppointments}</div>
+            <div class="stat-label">Scheduled</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-num">${summary.completedAppointments}</div>
+            <div class="stat-label">Completed</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-num">${summary.canceledAppointments}</div>
+            <div class="stat-label">Canceled</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-num">${summary.totalRevenue}</div>
+            <div class="stat-label">Total Revenue</div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

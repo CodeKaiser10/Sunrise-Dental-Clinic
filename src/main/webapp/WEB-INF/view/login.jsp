@@ -39,8 +39,6 @@
                 </div>
                 <button type="submit" class="y2k-btn y2k-btn-block">Log In &raquo;</button>
             </form>
-
-            <div class="y2k-footer">&#9733; best viewed in 800&times;600 &#9733; since 2001</div>
         </div>
 
     </div>
