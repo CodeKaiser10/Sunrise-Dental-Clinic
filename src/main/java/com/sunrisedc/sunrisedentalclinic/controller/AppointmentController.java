@@ -30,14 +30,14 @@ public class AppointmentController extends HttpServlet {
 
         //search by appointment number if given
         String appNo = request.getParameter("appointmentNumber");
-        if (appNo == null && !appNo.isEmpty()) {
+        if (appNo != null && !appNo.isEmpty()) {
             Appointment found = appointmentService.findByNumber(appNo);
             request.setAttribute("searchResult", found);
         }
 
         //to always show the full list
         request.setAttribute("appointments", appointmentService.getAllAppointments());
-        request.getRequestDispatcher("WEB-INF/views/appointments/appointments.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/view/appointments/appointments.jsp").forward(request, response);
     }
 
     @Override

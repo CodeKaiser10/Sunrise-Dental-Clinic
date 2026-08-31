@@ -15,6 +15,8 @@ public class PatientController extends HttpServlet {
 
     private PatientService patientService;
 
+    public PatientController() {}
+
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
     }
@@ -30,7 +32,7 @@ public class PatientController extends HttpServlet {
         String action = request.getParameter("action");
 
         //Show the edit form with patient's data
-        if (action.equals(action)) {
+        if ("edit".equals(action)) {
             int id  = Integer.parseInt(request.getParameter("id"));
             Patient patients = patientService.findPatient(id);
             request.setAttribute("editPatient", patients);
@@ -54,7 +56,7 @@ public class PatientController extends HttpServlet {
         String action = request.getParameter("action");
 
         //deletes a patient
-        if (action.equals(action)) {
+        if ("delete".equals(action)) {
             int id  = Integer.parseInt(request.getParameter("id"));
             patientService.deletePatient(id);
             response.sendRedirect(request.getContextPath() + "/receptionist/patients");
