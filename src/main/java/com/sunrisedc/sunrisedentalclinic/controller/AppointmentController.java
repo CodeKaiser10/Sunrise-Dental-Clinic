@@ -8,11 +8,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.sunrisedc.sunrisedentalclinic.model.Appointment;
 import com.sunrisedc.sunrisedentalclinic.service.AppointmentService;
+import com.sunrisedc.sunrisedentalclinic.service.PatientService;
+import com.sunrisedc.sunrisedentalclinic.service.UserService;
 
 @WebServlet({"/receptionist/appointments", "/manager/appointments"})
 public class AppointmentController extends HttpServlet {
 
     private AppointmentService appointmentService;
+    private UserService userService;
+    private PatientService patientService;
 
     public AppointmentController() {}
 
@@ -23,6 +27,8 @@ public class AppointmentController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         appointmentService = AppointmentService.getInstance();
+        patientService = PatientService.getInstance();
+        userService = UserService.getInstance();
     }
 
     @Override
@@ -31,7 +37,10 @@ public class AppointmentController extends HttpServlet {
 
         // Show the booking form page.
         String action = request.getParameter("action");
+
         if ("new".equals(action)) {
+            request.setAttribute("patients", patientService.getAllPatients());
+            request.setAttribute("dentists", userService.getAllUsers());
             request.getRequestDispatcher("/WEB-INF/view/receptionist/appointment-form.jsp").forward(request, response);
             return;
         }

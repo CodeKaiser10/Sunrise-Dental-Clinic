@@ -307,3 +307,26 @@ body { background: linear-gradient(135deg, #7cc9ff 0%, #a98bff 55%, #ff9be5 100%
     border-radius: 8px;
 }
 .search-hit strong { color: #22a06b; }
+
+.page-head-row {display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;}
+.page-head-row .page-heading {margin-bottom: 0;}
+.page-head-row .btn-pill {white-space: nowrap}
+
+.help-body h3 {font-family: 'Fredoka One', cursive; font-weight: normal; font-size: 22px; color: #ff5fa2; margin: 16px 0 6px; }
+.help-body h3:first-child { margin-top: 0; }
+.help-body p { font-size: 18px; letter-spacing: .5px; color: #33235c; margin: 0; }
+
+/* Textarea (medical record notes). */
+.text-area {
+    width: 100%;
+    font-family: 'VT323', monospace;
+    font-size: 19px;
+    padding: 10px 12px;
+    border: 2px solid #6a5acd;
+    border-radius: 8px;
+    background: #f6f2ff;
+    color: #33235c;
+    outline: none;
+    resize: vertical;
+}
+.text-area:focus { border-color: #ff5fa2; background: #fff; }

@@ -12,10 +12,10 @@ import java.util.List;
 public class AppointmentDAO {
 
     private static final String BASE_SELECT =
-            "SELECT a.*, p.name AS patient_name, u.full_name AS dentist_name" +
-                "FROM appointments a " +
-                    "JOIN patients p ON a.patient_id = p.patient_id" +
-                        "JOIN users u ON a.dentist_id = u.user_id";
+            "SELECT a.*, p.name AS patient_name, u.full_name AS dentist_name " +
+                    "FROM appointments a " +
+                    "JOIN patients p ON a.patient_id = p.patient_id " +
+                    "JOIN users u ON a.dentist_id = u.user_id ";
 
 
     //books a new appointment
@@ -46,7 +46,7 @@ public class AppointmentDAO {
     //returns every appointment with names
     public List<Appointment> findAll() {
         List<Appointment> appointments = new ArrayList<>();
-        String query = "ORDER BY a.appointment_datetime DESC";
+        String query = BASE_SELECT + "ORDER BY a.appointment_datetime DESC";
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -122,15 +122,15 @@ public class AppointmentDAO {
     //builds an appointment
     private Appointment mapRow(ResultSet resultSet) throws SQLException {
         Appointment appointment = new Appointment(
-                resultSet.getInt("appointmentId"),
+                resultSet.getInt("appointment_Id"),
                 resultSet.getString("appointment_number"),
                 resultSet.getInt("patient_id"),
                 resultSet.getInt("dentist_id"),
                 resultSet.getString("appointment_datetime"),
                 resultSet.getString("appointment_status")
         );
-        appointment.setPatientId(resultSet.getInt("patient_name"));
-        appointment.setDentistId(resultSet.getInt("dentist_name"));
+        appointment.setPatientName(resultSet.getString("patient_name"));
+        appointment.setDentistName(resultSet.getString("dentist_name"));
         return appointment;
     }
 }
