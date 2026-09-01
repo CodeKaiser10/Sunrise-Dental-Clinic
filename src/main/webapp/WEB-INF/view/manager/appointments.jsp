@@ -33,7 +33,7 @@
                 <div class="search-hit">
                     Found: <strong>${searchResult.appointmentNumber}</strong> -
                         ${searchResult.patientName} with ${searchResult.dentistName}
-                    on ${searchResult.appointmentDatetime} (${searchResult.appointmentStatus})
+                    on ${searchResult.appointmentDateTime} (${searchResult.appointmentStatus})
                 </div>
             </c:if>
         </div>
@@ -57,7 +57,7 @@
                             <td>${a.patientName}</td>
                             <td>${a.dentistName}</td>
                             <td>${a.appointmentDateTime}</td>
-                            <td>${a.appointmentstatus}</td>
+                            <td>${a.appointmentStatus}</td>
                         </tr>
                     </c:forEach>
                     <c:if test="${empty appointments}">

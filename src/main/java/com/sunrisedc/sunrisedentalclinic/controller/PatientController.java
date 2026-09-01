@@ -31,6 +31,11 @@ public class PatientController extends HttpServlet {
 
         String action = request.getParameter("action");
 
+        if("new".equals(action)){
+            request.getRequestDispatcher("/WEB-INF/view/receptionist/patient-form.jsp").forward(request, response);
+            return;
+        }
+
         //Show the edit form with patient's data
         if ("edit".equals(action)) {
             int id  = Integer.parseInt(request.getParameter("id"));
@@ -44,10 +49,14 @@ public class PatientController extends HttpServlet {
         String search = request.getParameter("search");
         if (search != null && !search.isEmpty()) {
             request.setAttribute("patients", patientService.searchPatient(search));
-        } else {
-            request.setAttribute("patient", patientService.getAllPatients());
         }
-        request.getRequestDispatcher("/WEB-INF/view/receptionist/patients.jsp").forward(request, response);
+
+        // (no else — if no search, patients is null, so the page shows an empty state)
+        if (request.getServletPath().startsWith("/manager")) {
+            request.getRequestDispatcher("/WEB-INF/view/manager/patients.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/view/receptionist/patients.jsp").forward(request, response);
+        }
     }
 
     @Override

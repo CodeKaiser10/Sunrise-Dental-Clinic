@@ -131,6 +131,7 @@ public class AppointmentDAO {
         );
         appointment.setPatientName(resultSet.getString("patient_name"));
         appointment.setDentistName(resultSet.getString("dentist_name"));
+        appointment.setTreatmentType(resultSet.getString("treatment_type"));
         return appointment;
     }
 }

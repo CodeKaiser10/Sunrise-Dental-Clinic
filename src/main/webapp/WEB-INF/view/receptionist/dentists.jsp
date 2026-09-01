@@ -16,7 +16,7 @@
     <div class="panel">
         <div class="panel-bar">
             <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-yellow"></span>
-            <span class="panel-bar-name">create_bill</span>
+            <span class="panel-bar-name">dentist_search</span>
         </div>
 
         <div class="panel-body">

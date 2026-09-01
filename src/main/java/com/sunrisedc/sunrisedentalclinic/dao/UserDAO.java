@@ -105,6 +105,51 @@ public class UserDAO {
         return users;
     }
 
+    //return all the users with a given role
+    public List<Staff> findByRole(String role) {
+        List<Staff> users = new ArrayList<>();
+        String query = "SELECT * FROM users WHERE role = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try{
+            connection  = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
+            statement.setString(1, role);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("user_id");
+                String user = resultSet.getString("username");
+                String passwordHash = resultSet.getString("password_hash");
+                String name = resultSet.getString("full_name");
+                String email = resultSet.getString("email");
+                String phone = resultSet.getString("phone");
+                Role r = Role.valueOf(role.valueOf(resultSet.getString("role")));
+                switch (r) {
+                    case MANAGER:
+                        users.add(new Manager(id, user, passwordHash, name, email, phone));
+                        break;
+                    case RECEPTIONIST:
+                        users.add(new Receptionist(id, user, passwordHash, name, email, phone));
+                        break;
+                    case DENTIST:
+                        users.add(new Dentist(id, user, passwordHash ,name, email, phone, null));
+                        break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return users;
+    }
+
     //insert a new staff row
     public void insert(Staff staff) {
 

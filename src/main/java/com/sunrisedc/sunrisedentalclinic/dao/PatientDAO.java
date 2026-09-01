@@ -11,7 +11,7 @@ import java.util.List;
 public class PatientDAO {
     //insert a new patient row
     public void insert(Patient patients) {
-        String query = "INSERT INTO patients VALUES(name,address,contact_number,date_of_birth,gender) VALUES(?,?,?,?,?)";
+        String query = "INSERT INTO patients (name, address, contact_number, date_of_birth, gender) VALUES (?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -119,7 +119,7 @@ public class PatientDAO {
 
     //updates an existing patient's details
     public void update(Patient patients) {
-        String query = "UPDATE patients SET name = ?, address = ?, contact_number = ?, date_of_birth = ?, gender = ?, WHERE patient_id=?";
+        String query = "UPDATE patients SET name = ?, address = ?, contact_number = ?, date_of_birth = ?, gender = ? WHERE patient_id=?";
         Connection connection = null;
         PreparedStatement statement = null;
         try {

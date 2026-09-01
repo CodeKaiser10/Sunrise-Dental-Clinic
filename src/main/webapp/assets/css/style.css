@@ -330,3 +330,68 @@ body { background: linear-gradient(135deg, #7cc9ff 0%, #a98bff 55%, #ff9be5 100%
     resize: vertical;
 }
 .text-area:focus { border-color: #ff5fa2; background: #fff; }
+
+/* Subtitle under the form heading. */
+.form-sub {
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #6a5acd;
+    margin-bottom: 22px;
+}
+
+/* A single stacked field (label on top, input below). */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+.form-field label {
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #5b3fd6;
+    margin-bottom: 6px;
+}
+.form-field input,
+.form-field select {
+    box-sizing: border-box;
+    width: 100%;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    padding: 11px 14px;
+    border: 2px solid #6a5acd;
+    border-radius: 8px;
+    background: #f6f2ff;
+    color: #33235c;
+    outline: none;
+}
+.form-field input:focus,
+.form-field select:focus { border-color: #ff5fa2; background: #fff; }
+.form-field input:disabled { background: #eee7ff; color: #9a8fc0; }
+
+/* Search row: input + button side by side. */
+.search-row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+}
+.search-row input { flex: 1; }
+.search-row .btn-pill { white-space: nowrap; }
+
+/* Two-column grid so fields sit neatly side by side (no overlap). */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+}
+@media (max-width: 640px) {
+    .form-grid { grid-template-columns: 1fr; }
+}
+
+/* Full-width book button. */
+.btn-wide {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px 0;
+    text-align: center;
+}

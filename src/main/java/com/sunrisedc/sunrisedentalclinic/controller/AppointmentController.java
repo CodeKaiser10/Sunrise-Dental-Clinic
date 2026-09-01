@@ -39,8 +39,6 @@ public class AppointmentController extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("new".equals(action)) {
-            request.setAttribute("patients", patientService.getAllPatients());
-            request.setAttribute("dentists", userService.getAllUsers());
             request.getRequestDispatcher("/WEB-INF/view/receptionist/appointment-form.jsp").forward(request, response);
             return;
         }

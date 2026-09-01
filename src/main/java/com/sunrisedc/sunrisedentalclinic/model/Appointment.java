@@ -8,6 +8,7 @@ public class Appointment {
     private int dentistId;
     private String appointmentDateTime;
     private String appointmentStatus;
+    private String treatmentType;
 
     private String patientName;
     private String dentistName;
@@ -85,5 +86,13 @@ public class Appointment {
 
     public void setDentistName(String dentistName) {
         this.dentistName = dentistName;
+    }
+
+    public String getTreatmentType() {
+        return treatmentType;
+    }
+
+    public void setTreatmentType(String treatmentType) {
+        this.treatmentType = treatmentType;
     }
 }

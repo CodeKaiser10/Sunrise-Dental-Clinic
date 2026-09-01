@@ -54,4 +54,9 @@ public class UserService {
     public Staff findUser(String username) {
         return userDAO.findByUsername(username);
     }
+
+    // Returns all users of a given role (used to list dentists).
+    public List<Staff> getUsersByRole(String role) {
+        return userDAO.findByRole(role);
+    }
 }
