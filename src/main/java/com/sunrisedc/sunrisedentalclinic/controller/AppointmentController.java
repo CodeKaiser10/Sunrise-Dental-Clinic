@@ -2,7 +2,9 @@ package com.sunrisedc.sunrisedentalclinic.controller;
 
 import java.io.IOException;
 
+import com.sunrisedc.sunrisedentalclinic.model.MedicalRecord;
 import com.sunrisedc.sunrisedentalclinic.model.Patient;
+import com.sunrisedc.sunrisedentalclinic.service.MedicalRecordService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -103,6 +105,12 @@ public class AppointmentController extends HttpServlet {
             patient.setDateOfBirth(request.getParameter("dateOfBirth"));
             patient.setGender(request.getParameter("gender"));
             patientId = patientService.registerAndGetId(patient);
+
+            MedicalRecord record = new MedicalRecord();
+            record.setPatientId(patientId);
+            record.setNotes("");
+            record.setCreatedDate(java.time.LocalDate.now().toString());
+            MedicalRecordService.getInstance().addRecord(record);
         }
 
 

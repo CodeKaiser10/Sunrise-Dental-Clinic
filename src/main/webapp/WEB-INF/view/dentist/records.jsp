@@ -12,6 +12,7 @@
 <div class="page-wrap">
     <h1 class="page-heading">Patient Medical Records</h1>
 
+    <!-- Look up a patient -->
     <div class="panel">
         <div class="panel-bar">
             <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
@@ -28,18 +29,27 @@
         </div>
     </div>
 
-    <c:if test="${not empty medicalRecord}">
+    <!-- Notes form: shown whenever a patient has been looked up -->
+    <c:if test="${not empty param.patientId}">
         <div class="panel">
             <div class="panel-bar">
                 <span class="dot dot-pink"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
                 <span class="panel-bar-name">record.exe</span>
             </div>
             <div class="panel-body">
+                <c:choose>
+                    <c:when test="${not empty medicalRecord}">
+                        <p class="form-sub">Record created: ${medicalRecord.createdDate}</p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="form-sub">No record yet for this patient — add notes below to create one.</p>
+                    </c:otherwise>
+                </c:choose>
+
                 <form action="${pageContext.request.contextPath}/dentist/records" method="post">
-                    <input type="hidden" name="action" value="update">
-                    <input type="hidden" name="patientId" value="${medicalRecord.patientId}">
+                    <input type="hidden" name="patientId" value="${param.patientId}">
                     <div class="field field-full">
-                        <label>Notes (created ${medicalRecord.createdDate})</label>
+                        <label>Medical Notes</label>
                         <textarea name="notes" rows="6" class="text-area">${medicalRecord.notes}</textarea>
                     </div>
                     <button type="submit" class="btn-pill">Save Notes &raquo;</button>

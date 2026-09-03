@@ -28,7 +28,7 @@ public class PrescriptionController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String patientId = request.getParameter("patientId");
-        if (patientId == null && !patientId.isEmpty()) {
+        if (patientId != null && !patientId.isEmpty()) {
             request.setAttribute("prescriptions", prescriptionService.getPatientPrescriptions(Integer.parseInt(patientId)));
         }
         request.getRequestDispatcher("/WEB-INF/view/dentist/prescriptions.jsp").forward(request, response);

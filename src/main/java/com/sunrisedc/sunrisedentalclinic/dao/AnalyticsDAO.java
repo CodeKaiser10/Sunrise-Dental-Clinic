@@ -10,7 +10,7 @@ public class AnalyticsDAO {
 
     //counts all rows in patient table
     public int countPatients() {
-        return runCount("SELECT COUNTS(*) FROM patients");
+        return runCount("SELECT COUNT(*) FROM patients");
     }
 
     //counts all appointments
@@ -20,7 +20,7 @@ public class AnalyticsDAO {
 
     //counts appointments in given status
     public int countAppointmentsByStatus(String status) {
-        String query = "SELECT COUNT(*) FROM appointment WHERE appointment_status = ?";
+        String query = "SELECT COUNT(*) FROM appointments WHERE appointment_status = ?";
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -42,7 +42,7 @@ public class AnalyticsDAO {
 
     //sums the total amount of every bill
     public double sumRevenue() {
-        String query = "SELECT COALESCE(SUM(total_amount), 0) FROM bill";
+        String query = "SELECT COALESCE(SUM(total_amount), 0) FROM bills";
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;

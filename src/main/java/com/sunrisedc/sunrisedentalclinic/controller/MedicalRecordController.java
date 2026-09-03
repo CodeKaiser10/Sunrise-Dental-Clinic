@@ -14,6 +14,8 @@ public class MedicalRecordController extends HttpServlet {
 
     private MedicalRecordService medicalRecordService;
 
+    public MedicalRecordController() {}
+
     public MedicalRecordController(MedicalRecordService medicalRecordService) {
         this.medicalRecordService = medicalRecordService;
     }
@@ -35,20 +37,28 @@ public class MedicalRecordController extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setPatientId(Integer.parseInt(request.getParameter("patientId")));
-        medicalRecord.setNotes(request.getParameter("notes"));
+        int patientId = Integer.parseInt(request.getParameter("patientId"));
+        String notes = request.getParameter("notes");
 
-        if ("update".equals(action)) {
-            medicalRecordService.updateRecord(medicalRecord);
+        // Check if this patient already has a record.
+        MedicalRecord existing = medicalRecordService.getRecordForPatient(patientId);
+
+        if (existing != null) {
+            // Update the existing record.
+            existing.setNotes(notes);
+            medicalRecordService.updateRecord(existing);
         } else {
-            medicalRecord.setCreatedDate(request.getParameter("createdDate"));
-            medicalRecordService.addRecord(medicalRecord);
+            // Create a new record for this patient.
+            MedicalRecord record = new MedicalRecord();
+            record.setPatientId(patientId);
+            record.setNotes(notes);
+            record.setCreatedDate(java.time.LocalDate.now().toString());
+            medicalRecordService.addRecord(record);
         }
 
-        response.sendRedirect(request.getContextPath() + "/dentist/records?patientId=" + medicalRecord.getPatientId());
+        response.sendRedirect(request.getContextPath() + "/dentist/records?patientId=" + patientId);
     }
 }
