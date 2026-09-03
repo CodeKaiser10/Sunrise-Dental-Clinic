@@ -1,6 +1,8 @@
 package com.sunrisedc.sunrisedentalclinic.controller;
 
 import java.io.IOException;
+
+import com.sunrisedc.sunrisedentalclinic.model.Patient;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,9 +22,6 @@ public class AppointmentController extends HttpServlet {
 
     public AppointmentController() {}
 
-    public AppointmentController(AppointmentService appointmentService) {
-        this.appointmentService = appointmentService;
-    }
 
     @Override
     public void init() throws ServletException {
@@ -35,28 +34,35 @@ public class AppointmentController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Show the booking form page.
         String action = request.getParameter("action");
 
+        //register new appointment
         if ("new".equals(action)) {
+            request.setAttribute("dentists", userService.getUsersByRole("DENTIST"));
             request.getRequestDispatcher("/WEB-INF/view/receptionist/appointment-form.jsp").forward(request, response);
             return;
         }
 
-        // Search by appointment number if given (null-safe).
-        String appNo = request.getParameter("appointmentNumber");
-        if (appNo != null && !appNo.isEmpty()) {
-            request.setAttribute("searchResult", appointmentService.findByNumber(appNo));
+        if ("search".equals(action)) {
+            String appNo = request.getParameter("appointmentNumber");
+            if (appNo != null && !appNo.isEmpty()) {
+                request.setAttribute("searchResult", appointmentService.findByNumber(appNo));
+            }
+            request.getRequestDispatcher("/WEB-INF/view/receptionist/appointment-search.jsp").forward(request, response);
+            return;
         }
 
-        request.setAttribute("appointments", appointmentService.getAllAppointments());
-
-        // Manager gets read-only view; receptionist gets full manage view.
-        if (request.getServletPath().startsWith("/manager")) {
-            request.getRequestDispatcher("/WEB-INF/view/manager/appointments.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("/WEB-INF/view/receptionist/appointments.jsp").forward(request, response);
+        if ("manage".equals(action)) {
+            request.setAttribute("appointments", appointmentService.getAllAppointments());
+            if (request.getServletPath().startsWith("/manager")) {
+                request.getRequestDispatcher("/WEB-INF/view/manager/appointments.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/WEB-INF/view/receptionist/appointment-manage.jsp").forward(request, response);
+            }
+            return;
         }
+
+        request.getRequestDispatcher("/WEB-INF/view/receptionist/appointments.jsp").forward(request, response);
     }
 
     @Override
@@ -80,10 +86,31 @@ public class AppointmentController extends HttpServlet {
             return;
         }
 
+        // Read the patient details from the form.
+        String contact = request.getParameter("contactNumber");
+        Patient existing = patientService.findByContact(contact);
+
+        int patientId;
+        if (existing != null) {
+            // Patient already exists — reuse their record.
+            patientId = existing.getPatientId();
+        } else {
+            // New patient — create the record and use the new id.
+            Patient patient = new Patient();
+            patient.setName(request.getParameter("patientName"));
+            patient.setAddress(request.getParameter("address"));
+            patient.setContactNumber(contact);
+            patient.setDateOfBirth(request.getParameter("dateOfBirth"));
+            patient.setGender(request.getParameter("gender"));
+            patientId = patientService.registerAndGetId(patient);
+        }
+
+
         //otherwise books an appointment
         Appointment appointment = new Appointment();
-        appointment.setPatientId(Integer.parseInt(request.getParameter("patientId")));
+        appointment.setPatientId(patientId);
         appointment.setDentistId(Integer.parseInt(request.getParameter("dentistId")));
+        appointment.setTreatmentType(request.getParameter("treatmentType"));
         appointment.setAppointmentDateTime(request.getParameter("appointmentDateTime"));
 
         appointmentService.bookAppointment(appointment);

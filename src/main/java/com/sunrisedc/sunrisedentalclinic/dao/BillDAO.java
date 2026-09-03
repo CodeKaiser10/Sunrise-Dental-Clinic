@@ -9,10 +9,11 @@ import java.sql.SQLException;
 public class BillDAO {
 
     //saves a bill
-    public void insert(Bill bill) {
+    public boolean insert(Bill bill) {
         String query = "INSERT INTO bills (appointment_id, consultation_fee, treatment_fee, discount, total_amount, bill_date) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement statement = null;
+        boolean saved = false;
         try {
             connection = DBConnectionFactory.getConnection();
             statement = connection.prepareStatement(query);
@@ -22,16 +23,16 @@ public class BillDAO {
             statement.setDouble(4, bill.getDiscount());
             statement.setDouble(5, bill.getTotalAmount());
             statement.setString(6, bill.getBillDate());
-            statement.executeUpdate();
+            int rows = statement.executeUpdate();
+            saved = (rows > 0);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
                 if (statement != null) statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            } catch (SQLException e) {}
         }
+        return saved;
     }
 
     //finds the for given appointment

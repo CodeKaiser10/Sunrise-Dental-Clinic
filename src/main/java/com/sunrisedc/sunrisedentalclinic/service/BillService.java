@@ -31,10 +31,10 @@ public class BillService {
         return consultationFee + treatmentFee - discount;
     }
 
-    public void createBill(Bill bill) {
+    public boolean createBill(Bill bill) {
         double total = calculateTotal(bill.getConsultationFee(), bill.getTreatmentFee(), bill.getDiscount());
         bill.setTotalAmount(total);
-        billDAO.insert(bill);
+        return billDAO.insert(bill);
     }
 
     public Bill getBillForAppointment(int appointmentId) {

@@ -25,7 +25,7 @@ public class AuthenticationServiceTest {
         authService = new AuthenticationService(userDAO);   // inject the mock DAO
     }
 
-    // --- password mechanism: pure BCrypt, no database ---
+    //password mechanism
 
     @Test
     public void testPassword_correct() {
@@ -37,7 +37,7 @@ public class AuthenticationServiceTest {
         assertFalse(authService.checkPassword("Password", HASH_PASSWORD));
     }
 
-    // --- login: DAO mocked so no real database is hit ---
+    // login: DAO mocked so no real database is hit
 
     @Test
     public void testStaff_allRoles() {
@@ -64,13 +64,13 @@ public class AuthenticationServiceTest {
     @Test
     public void testLogin_wrongPassword() {
         when(userDAO.findByUsername("manager")).thenReturn(new Manager(1, "manager", HASH_PASSWORD, "M", "m@s.lk", "071"));
-        // Wrong password won't match the stored hash → null.
+        // Wrong password won't match the stored hash null.
         assertNull(authService.login("manager", "Password"));
     }
 
     @Test
     public void testLogin_userNotFound() {
-        // DAO returns null for an unknown user → login returns null.
+        // DAO returns null for an unknown user login returns null.
         when(userDAO.findByUsername("none")).thenReturn(null);
         assertNull(authService.login("none", "Password@123"));
     }

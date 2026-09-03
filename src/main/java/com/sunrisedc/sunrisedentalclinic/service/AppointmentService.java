@@ -47,6 +47,7 @@ public class AppointmentService {
 
     //builds a reference
     private String generateNumber() {
-        return "AP-" + System.currentTimeMillis();
+        int next = appointmentDAO.countAll() + 1;
+        return String.format("APP-%03d", next);
     }
 }

@@ -134,4 +134,31 @@ public class AppointmentDAO {
         appointment.setTreatmentType(resultSet.getString("treatment_type"));
         return appointment;
     }
+
+    // Counts all appointments (used to generate the next appointment number).
+    public int countAll() {
+        String query = "SELECT COUNT(*) FROM appointments";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int count = 0;
+        try {
+            connection = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return count;
+    }
 }

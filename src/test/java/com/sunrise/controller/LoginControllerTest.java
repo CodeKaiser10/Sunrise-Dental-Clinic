@@ -63,7 +63,7 @@ class LoginControllerTest {
 
         controller.doPost(request, response);
 
-        verify(request).setAttribute("error", "Invalid username or password");
+        verify(request).setAttribute("errorMessage", "Invalid username or password");
         verify(dispatcher).forward(request, response);
     }
 }

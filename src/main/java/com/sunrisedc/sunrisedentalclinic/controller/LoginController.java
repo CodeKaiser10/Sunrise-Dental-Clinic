@@ -50,7 +50,7 @@ public class LoginController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + user.getDashboard());
         } else {
             //if failed redirect to the login form and show error message
-            request.setAttribute("error", "Invalid username or password");
+            request.setAttribute("errorMessage", "Invalid username or password");
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
     }

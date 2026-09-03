@@ -38,9 +38,9 @@ public class BillServiceTest {
     @Test
     void TotalAmount() {
         Bill bill = new Bill();
-        bill.setConsultationFee(1000);
-        bill.setTreatmentFee(2000);
-        bill.setDiscount(200);
+        bill.setConsultationFee(1000.00);
+        bill.setTreatmentFee(2000.00);
+        bill.setDiscount(200.00);
 
         billService.createBill(bill);
 

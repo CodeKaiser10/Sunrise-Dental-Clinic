@@ -331,67 +331,50 @@ body { background: linear-gradient(135deg, #7cc9ff 0%, #a98bff 55%, #ff9be5 100%
 }
 .text-area:focus { border-color: #ff5fa2; background: #fff; }
 
-/* Subtitle under the form heading. */
-.form-sub {
-    font-size: 18px;
-    letter-spacing: 1px;
-    color: #6a5acd;
-    margin-bottom: 22px;
-}
+.form-sub { font-size: 18px; letter-spacing: 1px; color: #6a5acd; margin-bottom: 20px; }
 
-/* A single stacked field (label on top, input below). */
-.form-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 18px;
+.form-field { display: flex; flex-direction: column; margin-bottom: 18px; }
+.form-field label { font-size: 18px; letter-spacing: 1px; color: #5b3fd6; margin-bottom: 6px; }
+.form-field input, .form-field select {
+    box-sizing: border-box; width: 100%;
+    font-family: 'VT323', monospace; font-size: 20px;
+    padding: 11px 14px; border: 2px solid #6a5acd; border-radius: 8px;
+    background: #f6f2ff; color: #33235c; outline: none;
 }
-.form-field label {
-    font-size: 18px;
-    letter-spacing: 1px;
-    color: #5b3fd6;
-    margin-bottom: 6px;
-}
-.form-field input,
-.form-field select {
-    box-sizing: border-box;
-    width: 100%;
-    font-family: 'VT323', monospace;
-    font-size: 20px;
-    padding: 11px 14px;
-    border: 2px solid #6a5acd;
-    border-radius: 8px;
-    background: #f6f2ff;
-    color: #33235c;
-    outline: none;
-}
-.form-field input:focus,
-.form-field select:focus { border-color: #ff5fa2; background: #fff; }
-.form-field input:disabled { background: #eee7ff; color: #9a8fc0; }
+.form-field input:focus, .form-field select:focus { border-color: #ff5fa2; background: #fff; }
 
-/* Search row: input + button side by side. */
-.search-row {
-    display: flex;
-    gap: 12px;
-    align-items: stretch;
-}
-.search-row input { flex: 1; }
-.search-row .btn-pill { white-space: nowrap; }
+/* Two-column grid; a full-width field spans both columns. */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+.form-field-full { grid-column: 1 / -1; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
 
-/* Two-column grid so fields sit neatly side by side (no overlap). */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 24px;
-}
-@media (max-width: 640px) {
-    .form-grid { grid-template-columns: 1fr; }
-}
+.btn-wide { display: inline-block; padding: 14px 40px; margin-top: 10px; }
 
-/* Full-width book button. */
-.btn-wide {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    padding: 14px 0;
+/*receipt */
+.live-total {
+    margin-top: 10px; padding: 12px 16px;
+    background: #e6ffef; border: 2px solid #68ffb0; border-radius: 8px;
+    font-family: 'Fredoka One', cursive; font-size: 22px; color: #22a06b;
     text-align: center;
+}
+.err-msg { color: #c01860; font-size: 16px; margin-top: 4px; }
+
+.receipt {
+    max-width: 420px; margin: 0 auto;
+    border: 2px dashed #6a5acd; border-radius: 10px;
+    padding: 22px; background: #fff; color: #33235c;
+    font-family: 'VT323', monospace; font-size: 19px;
+}
+.receipt h2 { font-family: 'Fredoka One', cursive; color: #ff5fa2; text-align: center; font-size: 24px; margin-bottom: 4px; }
+.receipt .rc-sub { text-align: center; color: #6a5acd; margin-bottom: 16px; letter-spacing: 1px; }
+.receipt .rc-line { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dotted #cbb8f0; }
+.receipt .rc-total { display: flex; justify-content: space-between; padding: 10px 0 0; font-size: 22px; color: #22a06b; font-weight: bold; }
+.receipt .rc-foot { text-align: center; margin-top: 16px; color: #9aa7c7; font-size: 15px; }
+
+/* When printing, show ONLY the receipt */
+@media print {
+    body * { visibility: hidden; }
+    .receipt, .receipt * { visibility: visible; }
+    .receipt { position: absolute; left: 0; top: 0; border: none; }
+    .no-print { display: none !important; }
 }

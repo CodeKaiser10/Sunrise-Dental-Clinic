@@ -119,7 +119,7 @@ public class PatientDAO {
 
     //updates an existing patient's details
     public void update(Patient patients) {
-        String query = "UPDATE patients SET name = ?, address = ?, contact_number = ?, date_of_birth = ?, gender = ? WHERE patient_id=?";
+        String query = "UPDATE patients SET name = ?, address = ?, contact_number = ?, date_of_birth = ?, gender= ? WHERE patient_id=?";
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -163,6 +163,68 @@ public class PatientDAO {
             }
         }
     }
+
+    // Finds a patient by their contact number (used during booking to reuse existing patients).
+    public Patient findByContactNumber(String contactNumber) {
+        String query = "SELECT * FROM patients WHERE contact_number = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
+            statement.setString(1, contactNumber);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return mapRow(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    // Inserts a new patient and returns the generated patient id.
+    public int insertAndReturnId(Patient patient) {
+        String query = "INSERT INTO patients (name, address, contact_number, date_of_birth, gender) VALUES (?, ?, ?, ?, ?)";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet keys = null;
+        int newId = 0;
+        try {
+            connection = DBConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, patient.getName());
+            statement.setString(2, patient.getAddress());
+            statement.setString(3, patient.getContactNumber());
+            statement.setString(4, patient.getDateOfBirth());
+            statement.setString(5, patient.getGender());
+            statement.executeUpdate();
+            keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                newId = keys.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (keys != null) keys.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return newId;
+    }
+
+
 
     //builds a patient object from the current result-set row
     private Patient mapRow(ResultSet resultSet) throws SQLException {

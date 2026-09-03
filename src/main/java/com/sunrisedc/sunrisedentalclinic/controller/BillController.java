@@ -1,6 +1,9 @@
 package com.sunrisedc.sunrisedentalclinic.controller;
 
 import java.io.IOException;
+
+import com.sunrisedc.sunrisedentalclinic.model.Appointment;
+import com.sunrisedc.sunrisedentalclinic.service.AppointmentService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,11 +16,12 @@ import com.sunrisedc.sunrisedentalclinic.service.BillService;
 public class BillController extends HttpServlet {
     private BillService billService;
 
-    private BillController() {}
+    public BillController() {}
 
     public BillController(BillService billService) {
         this.billService = billService;
     }
+
 
     @Override
     public void init() throws ServletException {
@@ -31,7 +35,7 @@ public class BillController extends HttpServlet {
         String appId = request.getParameter("appointmentId");
         if (appId != null && !appId.isEmpty()) {
             Bill bill = billService.getBillForAppointment(Integer.parseInt(appId));
-            request.setAttribute("bills", bill);
+            request.setAttribute("bill", bill);
         }
         request.getRequestDispatcher("/WEB-INF/view/receptionist/billing.jsp").forward(request, response);
     }
@@ -42,12 +46,18 @@ public class BillController extends HttpServlet {
         //builds the bill and let service calculate and save it
         Bill bill = new Bill();
         bill.setAppointmentId(Integer.parseInt(request.getParameter("appointmentId")));
-        bill.setConsultationFee(Integer.parseInt(request.getParameter("consultationFee")));
-        bill.setTreatmentFee(Integer.parseInt(request.getParameter("treatmentFee")));
-        bill.setDiscount(Integer.parseInt(request.getParameter("discount")));
-        bill.setBillId(Integer.parseInt(request.getParameter("billId")));
+        bill.setConsultationFee(Double.parseDouble(request.getParameter("consultationFee")));
+        bill.setTreatmentFee(Double.parseDouble(request.getParameter("treatmentFee")));
+        bill.setDiscount(Double.parseDouble(request.getParameter("discount")));
+        bill.setBillDate(request.getParameter("billDate"));
 
-        billService.createBill(bill);
-        response.sendRedirect(request.getContextPath() + "/receptionist/billing?appointmentId=" + bill.getAppointmentId());
+        boolean saved = billService.createBill(bill);
+
+        if (saved) {
+            request.setAttribute("bill", bill);
+        } else {
+            request.setAttribute("billError", "Bill could not be saved. check the appointment ID");
+        }
+        request.getRequestDispatcher("/WEB-INF/view/receptionist/billing.jsp").forward(request, response);
     }
 }

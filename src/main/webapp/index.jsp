@@ -24,7 +24,6 @@
             <h1 class="y2k-title">Sunrise Dental Clinic</h1>
             <p class="y2k-sub">~*~ Management System ~*~</p>
             <a class="y2k-btn" href="${pageContext.request.contextPath}/login">Go to Login &raquo;</a>
-            <div class="y2k-footer">best viewed in 800&times;600 &#9733; since 2001</div>
         </div>
 
     </div>

@@ -29,6 +29,14 @@ public class PatientService {
         return instance;
     }
 
+    public Patient findByContact(String contact) {
+        return patientDAO.findByContactNumber(contact);
+    }
+
+    public int registerAndGetId(Patient patient) {
+        return patientDAO.insertAndReturnId(patient);
+    }
+
     public void registerPatient(Patient patient) { patientDAO.insert(patient); }
     public List<Patient> getAllPatients() { return patientDAO.findAll(); }
     public List<Patient> searchPatient(String name) { return patientDAO.searchByName(name); }

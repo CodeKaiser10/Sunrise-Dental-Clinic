@@ -12,7 +12,6 @@
 <div class="page-wrap">
     <div class="page-head-row">
         <h1 class="page-heading">Patients</h1>
-        <a href="${pageContext.request.contextPath}/receptionist/patients?action=new" class="btn-pill">+ New Patient</a>
     </div>
 
     <!-- Search box -->

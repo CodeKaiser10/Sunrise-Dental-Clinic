@@ -4,10 +4,10 @@ public class Bill {
 
     private int billId;
     private int appointmentId;
-    private double consultationFee;
-    private double treatmentFee;
-    private double discount;
-    private double totalAmount;
+    private Double consultationFee;
+    private Double treatmentFee;
+    private Double discount;
+    private Double totalAmount;
     private String billDate;
 
     //No arg constructor
@@ -15,7 +15,7 @@ public class Bill {
 
     //full constructor
 
-    public Bill(int billId, int appointmentId, double consultationFee, double treatmentFee, double discount, double totalAmount, String billDate) {
+    public Bill(int billId, int appointmentId, Double consultationFee, Double treatmentFee, Double discount, Double totalAmount, String billDate) {
         this.billId = billId;
         this.appointmentId = appointmentId;
         this.consultationFee = consultationFee;
@@ -41,35 +41,35 @@ public class Bill {
         this.appointmentId = appointmentId;
     }
 
-    public double getConsultationFee() {
+    public Double getConsultationFee() {
         return consultationFee;
     }
 
-    public void setConsultationFee(int consultationFee) {
+    public void setConsultationFee(Double consultationFee) {
         this.consultationFee = consultationFee;
     }
 
-    public double getTreatmentFee() {
+    public Double getTreatmentFee() {
         return treatmentFee;
     }
 
-    public void setTreatmentFee(double treatmentFee) {
+    public void setTreatmentFee(Double treatmentFee) {
         this.treatmentFee = treatmentFee;
     }
 
-    public double getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
-    public double getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(double totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
